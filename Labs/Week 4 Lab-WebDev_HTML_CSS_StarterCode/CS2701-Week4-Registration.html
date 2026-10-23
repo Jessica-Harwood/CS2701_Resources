@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
             Fresh Food For All
         </title>
@@ -9,42 +11,76 @@
     <body>
         <header></header>
         <nav>
-            <!-- ToDo: An unordered list to represent the menu, 
-                       each list item should correspond to the menu items (Home, Register, Login, Help)
-                       The css class of the menu is "navlist"
-                       Check lecture slides about lists, an example of a more basic menu, and CSS class selector-->
+            <!-- Menu: an unordered list with the class "navlist" -->
             <ul class="navlist">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Help</a></li>
             </ul>
          </nav>
         <main>
-            <!-- Check Week 4 Lecture to learn about HTML5 semantic elements-->
+            <!-- Sidebar with a search box -->
             <aside>
+                <input type="text" class="search" id="search" name="search" placeholder="Search">
             </aside>
             <section>
                 <form class="center" novalidate>
-                <!-- ToDo: Implement the form containing 
-                           Name - type text
-                           email- type text
-                           password - type text
-                           Terms of Service - type checkbox
-                           Register - button
-                           Learn more - link
-                           Check lecture slides and the links on the slides to learn about forms
-                           and how to create a button that would react to a click Event
-                        -->
+                    <label for="name">Name:</label>
+                    <input type="text" class="textInput" id="name" name="name" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="text" class="textInput" id="email" name="email" required><br>
+
+                    <label for="password">Password:</label>
+                    <input type="password" class="textInput" id="password" name="password" required><br>
+
+                    <label for="retypePassword">Re-type password:</label>
+                    <input type="password" class="textInput" id="retypePassword" name="retypePassword" required><br><br>
+
                     <!-- Example given for user type checkboxes-->
-                    
                     <input type="checkbox" id="buyer" name="buyer" value="buyer">
                     <label for="buyer">I want to buy produce directly from allotment owners.</label><br>
                     <input type="checkbox" id="seller" name="seller" value="seller">
                     <label for="seller">I want to sell produce from my allotment.</label><br><br>
 
+                    <!-- Terms of Service checkbox with links -->
+                    <input type="checkbox" id="terms" name="terms" value="agreed" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</label>
+
                     <br><br>
+                    <!-- type="button" stops the page reloading; the click runs register() -->
+                    <button type="button" id="registerButton" onclick="register()">Register</button>
+                    <a href="#">Learn more</a>
                 </form>
                 <div class="center" id="hiddenSection">
                     <p id="hiddenParagraph"></p>
                 </div>
             </section>
         </main>
+
+        <script>
+            // Runs when the Register button is clicked
+            function register() {
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value;
+                const retype = document.getElementById("retypePassword").value;
+                const terms = document.getElementById("terms").checked;
+                const message = document.getElementById("hiddenParagraph");
+
+                if (name === "" || email === "" || password === "") {
+                    message.textContent = "Please fill in your name, email and password.";
+                } else if (!email.includes("@")) {
+                    message.textContent = "Please enter a valid email address.";
+                } else if (password !== retype) {
+                    message.textContent = "The passwords do not match.";
+                } else if (!terms) {
+                    message.textContent = "Please agree to the Terms of Use and Privacy Policy.";
+                } else {
+                    message.textContent = "Thank you for registering, " + name + "!";
+                }
+            }
+        </script>
     </body>
 </html>
